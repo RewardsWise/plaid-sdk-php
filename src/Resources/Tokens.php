@@ -34,6 +34,7 @@ class Tokens extends AbstractResource
 		array $country_codes,
 		User $user,
 		array $products = [],
+		?int $days_requested = 90,
 		?string $webhook = null,
 		?string $link_customization_name = null,
 		?AccountFilters $account_filters = null,
@@ -89,6 +90,10 @@ class Tokens extends AbstractResource
 		if ($auth) {
 			$params["auth"] = $auth;
 		}
+
+		$params['transactions'] = [
+			"days_requested" => $days_requested,
+		];
 
 		return $this->sendRequest(
 			"post",
