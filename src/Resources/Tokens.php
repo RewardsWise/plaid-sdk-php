@@ -24,6 +24,7 @@ class Tokens extends AbstractResource
 	 * @param string|null $android_package_name
 	 * @param string|null $payment_id
 	 * @param string|null $institution_id
+	 * @param string|null $routing_number
 	 * @param array|null $auth
 	 * @throws PlaidRequestException
 	 * @return object
@@ -43,6 +44,7 @@ class Tokens extends AbstractResource
 		?string $android_package_name = null,
 		?string $payment_id = null,
 		?string $institution_id = null,
+		?string $routing_number = null,
 		?array $auth = null): object {
 
 		$params = [
@@ -89,6 +91,12 @@ class Tokens extends AbstractResource
 
 		if ($auth) {
 			$params["auth"] = $auth;
+		}
+
+		if ($routing_number) {
+			$params['institution_data'] = [
+				"routing_number"	=>	$routing_number
+			];
 		}
 
 		$params['transactions'] = [
